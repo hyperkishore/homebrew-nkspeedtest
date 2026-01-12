@@ -9,19 +9,25 @@ class Nkspeedtest < Formula
   depends_on "speedtest-cli"
 
   def install
-    bin.install "bin/nkspeedtest"
-    # Install the full package for node dependencies
+    # Install the Node.js script
     libexec.install Dir["*"]
-    (bin/"nkspeedtest").unlink
+
+    # Create wrapper script
     (bin/"nkspeedtest").write <<~EOS
       #!/bin/bash
       exec "#{Formula["node"].opt_bin}/node" "#{libexec}/bin/nkspeedtest" "$@"
     EOS
+    chmod 0755, bin/"nkspeedtest"
   end
 
   def post_install
     ohai "nkspeedtest installed!"
-    ohai "Run 'nkspeedtest setup' to configure"
+    ohai "Setting up menu bar widget..."
+
+    # Auto-run menubar setup
+    system "#{bin}/nkspeedtest", "menubar"
+
+    ohai "Run 'nkspeedtest setup' to configure your settings"
   end
 
   def caveats
@@ -32,7 +38,7 @@ class Nkspeedtest < Formula
       To start automatic monitoring:
         nkspeedtest start
 
-      To install menu bar widget:
+      Menu bar widget was auto-installed. If not visible:
         nkspeedtest menubar
 
       To update:
