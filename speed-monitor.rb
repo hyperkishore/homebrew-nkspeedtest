@@ -1,8 +1,8 @@
 class SpeedMonitor < Formula
   desc "Internet speed monitoring with central dashboard aggregation"
-  homepage "https://github.com/kishore/speed-monitor"
-  url "https://github.com/kishore/speed-monitor/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "PLACEHOLDER_SHA256"
+  homepage "https://github.com/hyperkishore/speed-monitor"
+  url "https://github.com/hyperkishore/speed-monitor/archive/refs/tags/v1.0.0.tar.gz"
+  sha256 "b8d9e745c1e954b2417a7f2390eb94a105cebb8978fad8057c892df642d359ac"
   license "MIT"
 
   depends_on "speedtest-cli"
