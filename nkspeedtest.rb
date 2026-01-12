@@ -1,14 +1,22 @@
 class Nkspeedtest < Formula
   desc "Internet speed monitoring with central dashboard aggregation"
   homepage "https://github.com/hyperkishore/speed-monitor"
-  url "https://github.com/hyperkishore/speed-monitor/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "b8d9e745c1e954b2417a7f2390eb94a105cebb8978fad8057c892df642d359ac"
+  url "https://github.com/hyperkishore/speed-monitor/archive/refs/tags/v1.0.1.tar.gz"
+  sha256 "2d6541af6c037acaa979b0eaf984da343051e5b2d146c66408ffe1e0f6578891"
   license "MIT"
 
+  depends_on "node"
   depends_on "speedtest-cli"
 
   def install
-    bin.install "bin/speed-monitor" => "nkspeedtest"
+    bin.install "bin/nkspeedtest"
+    # Install the full package for node dependencies
+    libexec.install Dir["*"]
+    (bin/"nkspeedtest").unlink
+    (bin/"nkspeedtest").write <<~EOS
+      #!/bin/bash
+      exec "#{Formula["node"].opt_bin}/node" "#{libexec}/bin/nkspeedtest" "$@"
+    EOS
   end
 
   def post_install
@@ -24,15 +32,15 @@ class Nkspeedtest < Formula
       To start automatic monitoring:
         nkspeedtest start
 
-      To view status:
-        nkspeedtest status
+      To install menu bar widget:
+        nkspeedtest menubar
 
-      To open the local dashboard:
-        nkspeedtest dashboard
+      To update:
+        brew upgrade nkspeedtest
     EOS
   end
 
   test do
-    assert_match "speed-monitor", shell_output("#{bin}/nkspeedtest --version")
+    assert_match "nkspeedtest", shell_output("#{bin}/nkspeedtest --version")
   end
 end
