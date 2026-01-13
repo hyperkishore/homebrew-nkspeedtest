@@ -1,8 +1,8 @@
 class Nkspeedtest < Formula
   desc "Internet speed monitoring with central dashboard aggregation"
   homepage "https://github.com/hyperkishore/speed-monitor"
-  url "https://github.com/hyperkishore/speed-monitor/archive/refs/tags/v1.0.2.tar.gz"
-  sha256 "afe53a4e2ae22328613cb62fe367ed155c662e54f63af0e74551c5ff2c72b0c1"
+  url "https://github.com/hyperkishore/speed-monitor/archive/refs/tags/v1.0.3.tar.gz"
+  sha256 "ae8108a993fa5b9dbe7684378d074ff8b00c17e14f7a951e56517eac0936b93e"
   license "MIT"
 
   depends_on "node"
